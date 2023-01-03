@@ -24,6 +24,6 @@ while turn_on:
 
         print("THE CHANGE IS SUCCESSFUL")
         os.system(f"ifconfig {NIC}")
-        turn_on = True
+        turn_on = False
     else:
         print("please enter the correct network adapter")
