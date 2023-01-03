@@ -4,19 +4,26 @@ import os
 
 BITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"]
 OCTET_ONE = [0, 2, 4, 6, 8]
+ADAPTERS = ["eth0","eth1","wlan0"]
 
-# Name of the NIC you wish to change.
-NIC = input("What is the name of the Network Adapter:")
+turn_on = True
+while turn_on:
+    # Name of the NIC you wish to change.
+    NIC = input("What is the name of the Network Adapter:")
+    # check the user input to prevent users from inputing malicious code
+    if NIC in ADAPTERS:
+        # The first octet must be even or it will give an error.
+        f_octet = [(random.choice(OCTET_ONE)) for x in range(0, 4)]
 
-# The first octet must be even or it will give an error.
-f_octet = [(random.choice(OCTET_ONE)) for x in range(0, 4)]
+        mac = [(random.choice(BITS)) for x in range(0, 12)]
+        mac_address = f"{f_octet[0]}{f_octet[1]}:{mac[2]}{mac[3]}:{mac[4]}{mac[5]}:{mac[6]}{mac[7]}:{mac[8]}{mac[9]}:{mac[10]}{mac[11]}"
 
-mac = [(random.choice(BITS)) for x in range(0, 12)]
-mac_address = f"{f_octet[0]}{f_octet[1]}:{mac[2]}{mac[3]}:{mac[4]}{mac[5]}:{mac[6]}{mac[7]}:{mac[8]}{mac[9]}:{mac[10]}{mac[11]}"
+        os.popen(f"ifconfig {NIC} down")
+        os.popen(f"ifconfig {NIC} hw ether {mac_address}")
+        os.popen(f"ifconfig {NIC} up")
 
-os.popen(f"ifconfig {NIC} down")
-os.popen(f"ifconfig {NIC} hw ether {mac_address}")
-os.popen(f"ifconfig {NIC} up")
-
-print("THE CHANGE IS SUCCESSFUL")
-os.system(f"ifconfig {NIC}")
+        print("THE CHANGE IS SUCCESSFUL")
+        os.system(f"ifconfig {NIC}")
+        turn_on = True
+    else:
+        print("please enter the correct network adapter")
