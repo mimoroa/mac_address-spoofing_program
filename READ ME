@@ -1,0 +1,9 @@
+READ ME
+
+Mac Spoofer for Linux
+A command-line program for changing the MAC address of a network interface on a Linux system.
+make sure you have permission to run the file with superuser permissions.
+Your machine may lose network connection, so please make sure you have all the required credentials or info to reconnect.
+This script is for the linux operating system only.
+changing the MAC address may be illegal in some cases and may also violates your network provider's terms and conditions. So, make sure you are aware of the risks and legal aspect of this action before proceeding.
+After spoofing, if you are not able to connect to the network, please try restarting the network-manager service by running "service network-manager restart" or "systemctl restart network-manager"
